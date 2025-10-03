@@ -1031,18 +1031,21 @@ input[type="checkbox"]:checked+.checkbox-marker {
     content: '✔';
     margin: auto;
     color: var(--color-input-bg);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
+    display: block;
     opacity: 0;
 }
 input[type="checkbox"]:checked+.checkbox-marker::before {
     opacity: 1;
+    color: var(--color-input-bg);
 }
 .checkbox-marker.checked::before {
-    color: var(--color-text-white);
+    color: var(--color-input-bg);
 }
 input[type="checkbox"]:checked+.checkbox-marker.checked::before {
     opacity: 1;
+    color: var(--color-input-bg);
 }
 
 .checkbox-group span {
