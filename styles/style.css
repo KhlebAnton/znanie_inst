@@ -1761,12 +1761,7 @@ input[type="checkbox"]:checked+.checkbox-marker.checked::before {
     background-color: #FFFFFF1F;
     cursor: pointer;
     position: relative;
-    transition: all 0.3s ease;
-}
-
-.faq-dropdown-item:hover {
-    background-color: #FFFFFF2F;
-    transform: translateY(-2px);
+   
 }
 
 .faq-dropdown-item::before {
@@ -1779,15 +1774,13 @@ input[type="checkbox"]:checked+.checkbox-marker.checked::before {
     background: url('../img/frame-faq.svg') 50% / cover no-repeat;
     z-index: 0;
     opacity: 0;
-    transform: scale(0.95);
-    transition: all .3s cubic-bezier(0.4, 0, 0.8, 1);
+    transition: opacity 1s ease;
     border-radius: 24px;
 }
 
 .faq-dropdown-item.open::before {
     opacity: 1;
-    transform: scale(1);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+   
 }
 
 .faq-dropdown-item__title {
@@ -1804,7 +1797,7 @@ input[type="checkbox"]:checked+.checkbox-marker.checked::before {
     width: 32px;
     height: 32px;
     opacity: .5;
-    transition: all 0.3s ease;
+    transition: opacity .3s ease, transform .3s ease;
     transform: rotate(45deg);
     background: url('../img/icons/close_wh.svg') 50% / contain no-repeat;
 }
@@ -1824,14 +1817,17 @@ input[type="checkbox"]:checked+.checkbox-marker.checked::before {
     overflow: hidden;
     opacity: 0;
     transform: translateY(-10px);
+    transition:  all 0.6s ease;
+
 }
 
 .faq-dropdown-item.open .faq-dropdown-item__content {
     max-height: 800px;
     margin-top: 25px;
     opacity: 1;
+    transition: 0.6s all 0.6s ease;
+
     transform: translateY(0);
-    transition: all 0.6s ease;
 }
 
 .faq-link {
