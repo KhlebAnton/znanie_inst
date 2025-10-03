@@ -925,7 +925,55 @@ button {
     outline: none;
     box-shadow: 0px 1px 2px 0px #121A2B0D;
     width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
 
+/* Исправление для iOS Safari - input[type="date"] не выходит за границы */
+@supports (-webkit-touch-callout: none) {
+    .form-group input[type="date"] {
+        min-height: 56px;
+        line-height: 1.5;
+        -webkit-appearance: none;
+        appearance: none;
+        -webkit-border-radius: 12px;
+        border-radius: 12px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .form-group input[type="date"]::-webkit-datetime-edit {
+        padding: 0;
+        margin: 0;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+    }
+    
+    .form-group input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .form-group input[type="date"]::-webkit-datetime-edit-text {
+        padding: 0 2px;
+    }
+    
+    .form-group input[type="date"]::-webkit-datetime-edit-month-field,
+    .form-group input[type="date"]::-webkit-datetime-edit-day-field,
+    .form-group input[type="date"]::-webkit-datetime-edit-year-field {
+        padding: 0 2px;
+    }
+    
+    .form-group input[type="date"]::-webkit-inner-spin-button,
+    .form-group input[type="date"]::-webkit-clear-button {
+        display: none;
+        -webkit-appearance: none;
+    }
 }
 
 .form-group input:focus {
@@ -985,10 +1033,16 @@ input[type="checkbox"]:checked+.checkbox-marker {
     color: var(--color-input-bg);
     font-size: 14px;
     font-weight: bold;
+    opacity: 0;
 }
-
+input[type="checkbox"]:checked+.checkbox-marker::before {
+    opacity: 1;
+}
 .checkbox-marker.checked::before {
     color: var(--color-text-white);
+}
+input[type="checkbox"]:checked+.checkbox-marker.checked::before {
+    opacity: 1;
 }
 
 .checkbox-group span {
