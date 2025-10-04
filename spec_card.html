@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./styles/style.css">
+
+</head>
+
+<body>
+    <div id="modal-application" class="modal">
+        <div class="modal__content">
+            <button class="modal__close" type="button" aria-label="Закрыть">&times;</button>
+            <h2 class="modal__title">Подать документы</h2>
+            <form id="application-form" class="modal__form" autocomplete="off">
+                <div class="form-step form-step-1 active">
+                    <div class="form-group">
+                        <label for="fio">ФИО абитуриента *</label>
+                        <input type="text" id="fio" name="fio" required placeholder="Иванов Иван Иванович">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Дата рождения *</label>
+                        <input type="date" id="birthdate" name="birthdate" required placeholder="01.01.2000">
+                    </div>
+                    <div class="form-group">
+                        <label for="address-fact">Адрес фактического проживания *</label>
+                        <input type="text" id="address-fact" name="address_fact" required
+                            placeholder="Город, улица, дом, квартира ">
+                    </div>
+                    <div class="form-group">
+                        <label for="address-reg">Адрес по прописке *</label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="same-address" name="same_address">
+                            <div class="checkbox-marker"></div>
+                            <span>Совпадает с адресом фактического проживания</span>
+                        </label>
+                        <input type="text" id="address-reg" name="address_reg" required
+                            placeholder="Город, улица, дом, квартира ">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-next">Далее</button>
+                    </div>
+                </div>
+                <div class="form-step form-step-2" style="display:none;">
+                    <div class="form-group">
+                        <label for="parent-fio">ФИО законного представителя *</label>
+                        <input type="text" id="parent-fio" name="parent_fio" required
+                            placeholder="Иванов Иван Иванович">
+                    </div>
+                    <div class="form-group">
+                        <label for="parent-phone">Телефон законного представителя *</label>
+                        <input type="tel" id="parent-phone" name="parent_phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="speciality">Специальность *</label>
+                        <div class="custom-select" id="speciality-select">
+                            <input type="text" id="speciality" name="speciality" readonly required
+                                placeholder="Выберите специальность">
+                            <div class="select-arrow"></div>
+                            <ul class="select-options" style="display:none;">
+                                <li data-value="01">Специальность 1</li>
+                                <li data-value="02">Специальность 2</li>
+                                <li data-value="03">Специальность 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="study-form">Форма обучения *</label>
+                        <div class="custom-select" id="study-form-select">
+                            <input type="text" id="study-form" name="study_form" readonly required
+                                placeholder="Выберите форму обучения">
+                            <div class="select-arrow"></div>
+                            <ul class="select-options" style="display:none;">
+                                <li data-value="full">Очная</li>
+                                <li data-value="part">Заочная</li>
+                                <li data-value="evening">Вечерняя</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev">Назад</button>
+                        <button type="button" class="btn btn-next">Далее</button>
+                    </div>
+                </div>
+                <div class="form-step form-step-3" style="display:none;">
+                    <div class="form-group file-group">
+                        <label>Копия паспорта *</label>
+                        <div class="file-upload" data-max="5" data-name="passport" data-accept=".jpeg,.pdf,.png"
+                            data-maxsize="10485760">
+                            <div class="file-btn_group">
+                                <button type="button" class="btn file-btn">Прикрепить файлы</button>
+
+                                <div class="file-hint">Допустимый формат файлов .jpeg, .pdf, .png. Размером до 10MB. Не
+                                    более 5 файлов.</div>
+                            </div>
+
+                            <div class="file-list"></div>
+                        </div>
+                    </div>
+                    <div class="form-group file-group">
+                        <label>Копия СНИЛС *</label>
+                        <div class="file-upload" data-max="1" data-name="snils" data-accept=".jpeg,.pdf,.png"
+                            data-maxsize="10485760">
+                            <div class="file-btn_group">
+                                <button type="button" class="btn file-btn">Прикрепить файл</button>
+                                <div class="file-hint">Допустимый формат файла .jpeg, .pdf, .png. Размером до 10MB.
+                                </div>
+                            </div>
+                            <div class="file-list"></div>
+                        </div>
+                    </div>
+                    <div class="form-group file-group">
+                        <label>Документ об образовании *</label>
+                        <div class="file-upload" data-max="1" data-name="education" data-accept=".jpeg,.pdf,.png"
+                            data-maxsize="10485760">
+                            <div class="file-btn_group">
+                                <button type="button" class="btn file-btn">Прикрепить файл</button>
+                                <div class="file-hint">Допустимый формат файла .jpeg, .pdf, .png. Размером до 10MB.
+                                </div>
+                            </div>
+                            <div class="file-list"></div>
+                        </div>
+                    </div>
+                    <div class="form-group file-group">
+                        <label>Результаты ЕГЭ</label>
+                        <div class="file-upload" data-max="1" data-name="ege" data-accept=".jpeg,.pdf,.png"
+                            data-maxsize="10485760">
+                            <div class="file-btn_group">
+                                <button type="button" class="btn file-btn">Прикрепить файл</button>
+                                <div class="file-hint">Допустимый формат файла .jpeg, .pdf, .png. Размером до 10MB.
+                                </div>
+                            </div>
+                            <div class="file-list"></div>
+                        </div>
+                    </div>
+                    <div class="form-group file-group">
+                        <label>Другие документы</label>
+                        <div class="file-upload" data-max="5" data-name="other" data-accept=".jpeg,.pdf,.png"
+                            data-maxsize="10485760">
+                            <div class="file-btn_group">
+                                <button type="button" class="btn file-btn">Прикрепить файлы</button>
+                                <div class="file-hint">Допустимый формат файлов .jpeg, .pdf, .png. Размером до 10MB. Не
+                                    более 5 файлов.</div>
+                            </div>
+                            <div class="file-list"></div>
+                        </div>
+                    </div>
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <div class="checkbox-marker"></div>
+                        <span>Даю согласие на <a class="checkbox-link" href="#">обработку персональных данных</a>
+                        </span>
+                    </label>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev">Назад</button>
+                        <button type="submit" class="btn btn-submit">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Универсальная модалка успеха -->
+    <div id="modal-success" class="modal">
+        <div class="modal__content">
+            <button class="modal__close" type="button" aria-label="Закрыть">&times;</button>
+            <div class="success-message">
+                <div class="success-icon">✓</div>
+                <h2 class="success-title"></h2>
+                <p class="success-text"></p>
+                <button type="button" class="btn btn-primary success-close">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+
+        <div class="header__top">
+            <div class="container">
+                <a class="header__top__tel" href="tel:+79154888888">
+                    <svg class="icon-svg">
+                        <use xlink:href="./img/icons/sprite.svg#icon-phone"></use>
+                    </svg>
+
+                    <span>+7 (915) 488-88-88</span>
+                </a>
+                <div class="header__top__btns">
+                    <div class="header_btn">
+                        <svg class="icon-svg">
+                            <use xlink:href="./img/icons/sprite.svg#icon-user"></use>
+                        </svg>
+                        <span>Личный кабинет</span>
+                    </div>
+                    <div class="header_btn page_version">
+                        <svg class="icon-svg">
+                            <use xlink:href="./img/icons/sprite.svg#icon-eye"></use>
+                        </svg>
+
+                        <span>Версия для слабовидящих</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="container container_header">
+            <a href="#" class="logo_wrapper">
+                <img class="logo_img" src="./img/logo.svg" alt="Логотип">
+            </a>
+            <nav class="header_nav">
+                <a href="#" class="header-nav__item">Поступление 2025</a>
+                <a href="#" class="header-nav__item">Институт</a>
+                <a href="#" class="header-nav__item">Обучающимся</a>
+            </nav>
+            <div class="header_btn menu-btn" data-btn="btn-menu">
+                <span>Меню</span>
+                <svg class="icon-svg">
+                    <use xlink:href="./img/icons/sprite.svg#icon-menu"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="menu hidden">
+            <div class="container menu__container">
+                <div class="menu_top">
+                    <a href="#" class="logo_wrapper">
+                        <img class="logo_img" src="./img/logo_2.svg" alt="Логотип">
+                    </a>
+                    <div class="header_btn menu-btn" data-btn="btn-menu-close">
+                        <span>Меню</span>
+                        <svg class="icon-svg">
+                            <use xlink:href="./img/icons/sprite.svg#icon-close"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="menu__content">
+                    <div class="menu_dropdown">
+                        <div class="menu_dropdown-item open">
+                            <div class="menu_dropdown-top">
+                                Институт
+                            </div>
+                            <div class="menu_dropdown__hidden">
+                                <nav class="menu_dropdown-nav">
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Сведения об образовательной организации
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Преподаватели
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Контакты
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Партнеры
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Структура
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Трудоустройство
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="menu_dropdown-item">
+                            <div class="menu_dropdown-top">
+                                Поступающим
+                            </div>
+                            <div class="menu_dropdown__hidden">
+                                <nav class="menu_dropdown-nav">
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Сведения об образовательной организации
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Преподаватели
+                                    </a>
+
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="menu_dropdown-item">
+                            <div class="menu_dropdown-top">
+                                Обучающимся
+                            </div>
+                            <div class="menu_dropdown__hidden">
+                                <nav class="menu_dropdown-nav">
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Сведения об образовательной организации
+                                    </a>
+
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Структура
+                                    </a>
+                                    <a href="#" class="menu_dropdown-nav-item">
+                                        Трудоустройство
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="btn btn-primary" data-btn-modal="documents">Подать документы</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="visually__content hidden">
+            <div class="container">
+                <div class="visually-items">
+                    <div class="visually-item">
+                        <div class="visually-item__title">Размер шрифта</div>
+                        <div class="visually-item__btns">
+                            <div class="btn visually-btn visually-btn__font-minus">A-</div>
+                            <div class="btn visually-btn visually-btn__font-plus">A+</div>
+
+                        </div>
+                    </div>
+                    <div class="visually-item">
+                        <div class="visually-item__title">Цвета сайта</div>
+                        <div class="visually-item__btns">
+                            <div class="btn visually-btn visually-btn-color"
+                                style="background-color: #FEFEFE; color: #000000;">Ц</div>
+                            <div class="btn visually-btn visually-btn-color"
+                                style="background-color: #000000; color: #FEFEFE;">Ц</div>
+                            <div class="btn visually-btn visually-btn-color"
+                                style="background-color: #9CD1FE; color: #3F72A2;">Ц</div>
+                            <div class="btn visually-btn visually-btn-color"
+                                style="background-color: #F6F2D5; color: #A09B87;">Ц</div>
+                            <div class="btn visually-btn visually-btn-color"
+                                style="background-color: #3B2714; color: #8EA450;">Ц</div>
+                        </div>
+                    </div>
+                    <div class="visually-item">
+                        <div class="visually-item__title">Изображения</div>
+                        <div class="visually-item__btns">
+                            <div class="btn visually-btn visually-btn_img">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-image"></use>
+                                </svg>
+
+                            </div>
+                            <div class="btn visually-btn visually-btn_img_remove">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-ban"></use>
+                                </svg>
+
+                            </div>
+                            <div class="btn visually-btn visually-btn_img_contrast">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-star"></use>
+                                </svg>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="visually-item">
+                        <div class="visually-item__title">Синтез речи</div>
+                        <div class="visually-item__btns">
+                            <div class="btn visually-btn visually-btn_sound">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-volume"></use>
+                                </svg>
+                            </div>
+                            <div class="btn visually-btn visually-btn_sound-mute">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-volume-off"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="visually-item">
+                        <div class="visually-item__title">Настройки</div>
+                        <div class="visually-item__btns">
+                            <div class="btn visually-btn visually-btn_option">
+                                <svg class="icon-svg">
+                                    <use xlink:href="./img/icons/sprite.svg#icon-settings">
+
+                                    </use>
+                                </svg>
+                            </div>
+                            <div class="btn visually-btn visually-btn__remove">Обычная версия сайта</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </header>
+    <nav class="breadcrumbs container">
+
+        <a href="#">Главная</a>
+        <a href="#">Специальности</a>
+        <a href="#">Специальность</a>
+
+
+
+    </nav>
+    <main class="main">
+        <section class="spec-card_section">
+            <div class="container spec-card_container">
+                <div class="spec-card__content">
+                    <div class="spec-card__left flex-column">
+                        <div class="spec-card__top">
+                            <h1 class="spec-card__title">38.03.02 Менеджмент</h1>
+                            <div class="spec-card__hints">
+                                <div class="spec-card__hint">
+                                    <span>
+                                        Бакалавриат
+                                    </span>
+                                </div>
+                                <div class="spec-card__hint">
+                                    <span>
+                                        Очно-заочная форма
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spec-card__stats">
+                            <div class="spec-card__stats-item">
+                                <span class="spec-card__stats-item__title">
+                                    Бюджетных мест:
+                                </span>
+                                <span class="spec-card__stats-item__value">
+                                    67
+                                </span>
+                            </div>
+                            <div class="spec-card__stats-item">
+                                <span class="spec-card__stats-item__title">
+                                    Срок обучения:
+                                </span>
+                                <span class="spec-card__stats-item__value">
+                                    3 года 5 месяцев
+                                </span>
+                            </div>
+                            <div class="spec-card__stats-item">
+                                <span class="spec-card__stats-item__title">
+                                    Контрактных мест:
+                                </span>
+                                <span class="spec-card__stats-item__value">
+                                    20
+                                </span>
+                            </div>
+                            <div class="spec-card__stats-item">
+                                <span class="spec-card__stats-item__title">
+                                    Стоимость обучения:
+                                </span>
+                                <span class="spec-card__stats-item__value">
+                                    100 000 руб./год
+                                </span>
+                            </div>
+                        </div>
+                        <div class="spec-card__description">
+                            <div class="spec-card__description__item">
+                                <span class="spec-card__description-title">
+                                    О программе
+                                </span>
+                                <p class="spec-card__description-text">
+
+                                    Специальность «Экономика и бухгалтерский учет» подразумевает подготовку
+                                    специалистов, обладающих глубокими знаниями в области экономической теории,
+                                    финансов, аудита, учёта и анализа хозяйственной деятельности. Это профессия для
+                                    тех, кто любит точные науки, аналитику и стремится к работе с цифрами и
+                                    финансами.
+
+                                </p>
+                            </div>
+                            <div class="spec-card__description__item">
+                                <span class="spec-card__description-title">
+                                    Обязанности и функции
+                                </span>
+                                <p class="spec-card__description-text">
+                                    Специалисты по экономике и бухгалтерскому учету отвечают за финансовую часть
+                                    деятельности организаций: ведут бухгалтерию, проводят аудит, участвуют в разработке
+                                    и реализации экономической политики компании, осуществляют контроль за соблюдением
+                                    финансового законодательства. Они также анализируют финансовые результаты и
+                                    составляют прогнозы на будущее.
+                                </p>
+                            </div>
+                            <div class="spec-card__description__item">
+                                <span class="spec-card__description-title">
+                                    Образование и требования
+                                </span>
+                                <p class="spec-card__description-text">
+                                    В процессе обучения студенты изучают экономическую теорию, финансы, аудит, учет,
+                                    налоги, право, статистику и другие дисциплины. Также важными качествами для
+                                    специалистов данной сферы являются аналитический склад ума, внимательность к деталям
+                                    и умение работать с большим объемом информации.
+                                </p>
+                            </div>
+                            <div class="spec-card__description__item">
+                                <span class="spec-card__description-title">
+                                    Перспективы карьеры
+                                </span>
+                                <p class="spec-card__description-text">
+                                    Специалисты по экономике и бухгалтерскому учету могут работать в различных сферах: в
+                                    бухгалтерии и финансовом отделе компании, в аудиторских и консалтинговых фирмах, в
+                                    банках и страховых компаниях, а также в государственных учреждениях. Кроме того, они
+                                    могут заниматься преподавательской или научной работой в вузах.
+                                </p>
+                            </div>
+                            <div class="spec-card__description__item">
+                                <span class="spec-card__description-title">
+                                    Заключение
+                                </span>
+                                <p class="spec-card__description-text">
+                                    Профессия в области экономики и бухгалтерского учета требует высокой квалификации,
+                                    но взамен предлагает широкие возможности для карьерного роста и профессионального
+                                    развития. Это сфера, где всегда есть спрос на квалифицированных специалистов.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spec-card__right">
+                        <img src="./img/spec.png" alt="Специальность" class="spec-card__right__img">
+                        <button class="btn btn-spec" data-btn-modal="documents">
+                           Подать документы
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container flex-column">
+                <h2 class="section-title">Информация для студентов и абитуриентов
+                </h2>
+                <div class="docs__items">
+                    <a href="#" class="docs__item docs__item_s">
+                        <p>
+                            Учебный план
+                        </p>
+                    </a>
+                    <a href="#" class="docs__item docs__item_s">
+                        <p>
+                            Перечень документов <br>
+                            для поступления
+                        </p>
+                    </a>
+                    <a href="#" class="docs__item docs__item_s">
+                        <p>
+                            Правила внутреннего распорядка обучающихся в ГТИ «Знание»
+                        </p>
+                    </a>
+                    
+                </div>
+               
+            </div>
+        </section>
+        <section class="form-banner">
+            <div class="container form-banner__container">
+                <div class="form-banner__content ">
+                    <div class="form-banner__info flex-column">
+                        <h2 class="section-title">Хотите что бы мы
+                            с вами связались?</h2>
+                        <p class="form-banner__text">Просто оставьте ваш телефон</p>
+                    </div>
+                    <form class="form-banner__form">
+                        <div class="form-group">
+                            <input type="tel" placeholder="Телефон" required>
+                            <span class="error-message">Введите корректный телефон</span>
+                        </div>
+
+                        <button type="submit" class="btn form-banner__btn">
+                            <span>Отправить</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5.61084 13.3337L10.0015 8.94299C10.2505 8.69244 10.3902 8.35356 10.3902 8.00033C10.3902 7.6471 10.2505 7.30821 10.0015 7.05766L5.61084 2.66699"
+                                    stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+                        </button>
+                        <div class="form-politick">
+                            Нажимая кнопку «Отправить», я даю своё согласие
+                            на <a href="#">обработку персональных данных</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__links">
+                    <a href="#" class="footer__logo-wrapper">
+                        <img src="./img/logo_footer.svg" alt="Логотип Знание">
+                    </a>
+                    <div class="social-links">
+
+                        <a class="social-links__item icon_tg" href="#"></a>
+                        <a class="social-links__item icon_vk" href="#"></a>
+                    </div>
+                </div>
+                <nav class="footer__nav" aria-label="Навигация подвал">
+                    <div class="footer__nav__item">
+                        <span class="footer__nav-list__title">Институт</span>
+                        <ol class="footer__nav-list">
+                            <li><a href="#">
+                                    Сведения
+                                </a></li>
+                            <li><a href="#">
+                                    Структура
+                                </a></li>
+                            <li><a href="#">
+                                    Документы
+                                </a></li>
+                            <li><a href="#">
+                                    Преподаватели
+                                </a></li>
+                            <li><a href="#">
+                                    Трудоустройство
+                                </a></li>
+                            <li><a href="#">
+                                    Контакты
+                                </a></li>
+                        </ol>
+                    </div>
+                    <div class="footer__nav__item">
+                        <span class="footer__nav-list__title">Поступающим</span>
+                        <ol class="footer__nav-list">
+
+                            <li><a href="#">
+                                    Специальности
+                                </a></li>
+                            <li><a href="#">
+                                    Документы
+                                </a></li>
+                            <li><a href="#">
+                                    Приемная комиссия
+                                </a></li>
+                            <li><a href="#" data-btn-modal="documents">
+                                    Подать документы
+                                </a></li>
+                        </ol>
+                    </div>
+                    <div class="footer__nav__item">
+                        <span class="footer__nav-list__title">Обучающимся</span>
+                        <ol class="footer__nav-list">
+
+                            <li><a href="#">
+                                    Личный кабинет
+                                </a></li>
+                            <li><a href="#">
+                                    Расписание
+                                </a></li>
+                            <li><a href="#">
+                                    Базы практик
+                                </a></li>
+                            <li><a href="#">
+                                    Образовательный кредит
+                                </a></li>
+                            <li><a href="#">
+                                    Оплата и квитанции
+                                </a></li>
+                            <li><a href="#">
+                                    Студенческая жизнь
+                                </a></li>
+                        </ol>
+                    </div>
+
+                </nav>
+                <div class="footer__contacts">
+                    <span class="footer__nav-list__title">Контакты</span>
+                    <div class="footer__contacts-item">
+
+                        <a href="tel:+79260903500" class="footer__contacts-item__text">
+                            +7 (926) 090-35-00
+                        </a>
+                        <a href="mailto:ta@znanie-inst.ru" class="footer__contacts-item__text">ta@znanie-inst.ru</a>
+                        <p class="footer__contacts-item__adress">
+                            142100, Подольск, ул. Комсомольская, 1, пом. 1 (Левая сторона здания БЦ «Зингер Плаза»)
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span class="copyright">© 2025 Гуманитарно-технический институт «Знание»</span>
+                <div class="footer__politick_container">
+                    <a href="#" class="footer__politick-link">Политика обработки персональных данных </a>
+                    <a href="#" class="footer__politick-link">Условия использования </a>
+                </div>
+
+                <a href="#" class="footer__develops">
+                    <span>Техподдержка и разработка сайта</span>
+                    <img class="develop_img" src="./img/logo_develop.png" alt="Лого Разработчика">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/spec-filter.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="./scripts/banner-form-validation.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <!-- Cookie Notice -->
+    <div id="cookie-notice" class="cookie-notice">
+        <div class="cookie-notice__content">
+            <p class="cookie-notice__text">
+                «Мы используем файлы cookie и рекомендательные технологии. Пользуясь сайтом, вы соглашаетесь с <a
+                    href="#" class="cookie-notice__link">Политикой обработки персональных данных.</a>»
+
+            </p>
+            <button type="button" class="cookie-notice__btn" id="cookie-accept">Понятно</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
