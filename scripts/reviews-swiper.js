@@ -81,6 +81,7 @@ function toggleText(button) {
     const reviewItem = button.closest('.reviews-item');
     const textElement = reviewItem.querySelector('.reviews-item__text p');
     const span = button.querySelector('span');
+    const svg = button.querySelector('svg');
     const isExpanded = reviewItem.classList.contains('expanded');
     
     if (isExpanded) {
@@ -89,12 +90,14 @@ function toggleText(button) {
         textElement.style.webkitLineClamp = '8';
         textElement.style.lineClamp = '8';
         span.textContent = 'Развернуть';
+        svg.style.transform = 'rotate(0deg)';
     } else {
         // Разворачиваем текст
         reviewItem.classList.add('expanded');
         textElement.style.webkitLineClamp = 'none';
         textElement.style.lineClamp = 'none';
         span.textContent = 'Свернуть';
+        svg.style.transform = 'rotate(180deg)';
     }
     
     // Обновляем swiper после изменения высоты

@@ -105,6 +105,13 @@ const menuDropdownItems = document.querySelectorAll('.menu_dropdown-item');
 
 menuDropdownItems.forEach(item => {
     item.addEventListener('click', ()=> {
+       
+        if(item.classList.contains('open')) {
+           
+            item.classList.remove('open');
+            return
+
+        }
         menuDropdownItems.forEach(item => item.classList.remove('open'));
         item.classList.add('open')
     })
@@ -140,6 +147,12 @@ const successModal = document.getElementById('modal-success');
 document.addEventListener('DOMContentLoaded', function() {
     initModal();
     initCookieNotice();
+    
+    // Initialize gallery modal with a small delay to ensure DOM is fully loaded
+    setTimeout(() => {
+        initGalleryModal();
+    }, 100);
+    
 });
 
 function initModal() {
@@ -647,7 +660,7 @@ function initializePhoneInputs() {
                 initialCountry: 'ru',
                 preferredCountries: ['ru', 'kz', 'by', 'ua'],
                 utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
-                nationalMode: false,
+                nationalMode: true,
                 autoPlaceholder: 'aggressive'
             });
             
@@ -846,3 +859,88 @@ function initCookieNotice() {
         // For example, initialize analytics, etc.
     });
 }
+
+// ===== GALLERY MODAL FUNCTIONALITY =====
+function initGalleryModal() {
+    const galleries = document.querySelectorAll('.gallery');
+    let modal = null;
+
+    galleries.forEach((gallery) => {
+        const galleryItems = gallery.querySelectorAll('.gallery-item');
+        
+        galleryItems.forEach((item) => {
+            const img = item.querySelector('img');
+            if (img) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openGalleryModal(img.src, img.alt);
+                });
+            }
+        });
+    });
+
+    function createGalleryModal() {
+        if (modal) return modal;
+
+        modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <div class="image-modal__overlay">
+                <div class="image-modal__content">
+                    <button class="image-modal__close" id="gallery-modal-close">
+                        <img src="./img/icons/close.svg" alt="Закрыть">
+                    </button>
+                    <img class="image-modal__img" id="gallery-modal-image" src="" alt="">
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        return modal;
+    }
+
+    function openGalleryModal(src, alt) {
+        const modalElement = createGalleryModal();
+        const modalImage = modalElement.querySelector('#gallery-modal-image');
+        const closeBtn = modalElement.querySelector('#gallery-modal-close');
+
+        modalImage.src = src;
+        modalImage.alt = alt;
+        modalElement.classList.add('active');
+        document.body.classList.add('no-scroll');
+
+        // Close modal events
+        closeBtn.addEventListener('click', closeGalleryModal);
+        
+        modalElement.addEventListener('click', function(e) {
+            if (e.target === modalElement || e.target.classList.contains('image-modal__overlay')) {
+                closeGalleryModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function escapeHandler(e) {
+            if (e.key === 'Escape') {
+                closeGalleryModal();
+                document.removeEventListener('keydown', escapeHandler);
+            }
+        });
+    }
+
+    function closeGalleryModal() {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            
+            // Remove modal after animation
+            setTimeout(() => {
+                if (modal && modal.parentNode) {
+                    modal.parentNode.removeChild(modal);
+                    modal = null;
+                }
+            }, 300);
+        }
+    }
+}
+

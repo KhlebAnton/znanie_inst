@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isOpen) {
                 item.classList.add('open');
             }
+            const imgSrc = item.dataset.imgSrc;
+            const img = document.querySelector('.faq-img');
+            img.src = imgSrc;
+            img.classList.add('is-active');
         });
     });
 });
